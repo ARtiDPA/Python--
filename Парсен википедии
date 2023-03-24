@@ -1,0 +1,11 @@
+import requests
+from bs4 import BeautifulSoup
+def vibor():
+    aboba = input()
+    url = f"https://ru.wikipedia.org/wiki/{aboba}"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text,"lxml")
+    for p in soup.find("div", class_="mw-parser-output"):
+        print(p.text)
+
+vibor()
