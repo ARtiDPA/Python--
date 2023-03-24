@@ -1,0 +1,76 @@
+from time import *
+from threading import *
+
+sekunda = 0
+minuta = 0
+chasi = 0
+dni = 0
+
+
+SKLAD = ["булка", "булка", "булка", "булка"]
+SKLADTIME = [1,1,1,1]
+
+
+def sklad(aboba):
+    if aboba == 1:
+        for i in range(len(SKLAD)):
+            if SKLADTIME[i] <= 0:
+                print("Номер товара-",i+1,"Название товара =", SKLAD[i], " ---- товару пришел пиздец")
+            elif SKLADTIME[i]>0:
+                print("Номер товара-",i+1,"Название товара =", SKLAD[i]," ---- Срок годности в днях = ", SKLADTIME[i])
+    elif aboba == 2:
+        print("Выберте вариант: 1 - Добавить товар, 2 - Вычеркунть товар")
+        otvet = int(input())
+        if otvet == 1:
+            print("Напишите название товара")
+            naz_tovara = input()
+            print("Напишите срок годности в днях")
+            srok_godnosi = int(input())
+            SKLAD.append(naz_tovara)
+            SKLADTIME.append(srok_godnosi)
+        elif otvet == 2:
+            print("Напишите номер товара")
+            print("Если вы попали сегодня случайно напишите 0")
+            ydalit = int(input())
+            for i in range(len(SKLAD)):
+                if i == ydalit-1:
+                    SKLAD.pop(i)
+                    SKLADTIME.pop(i)
+            else:
+                pass
+
+
+
+def ychetvremeni(sekunda,minuta,chasi):
+    while True:
+        sleep(1)
+        sekunda+=1
+        if sekunda == 60:
+            minuta+= 1
+            sekunda-=60
+        elif minuta == 60:
+            chasi+=1
+            minuta-=60
+        elif chasi == 24:
+            chasi-=24
+            for i in range(len(SKLADTIME)):
+                SKLADTIME[i] = SKLADTIME[i] - 1
+
+
+
+def Logica():
+    while True:
+        print("1 - Показать колво товара с его дедлайном")
+        print("2 - Добавить в список новые товары либо же вычеркнуть")
+        aboba = int(input())
+        if aboba == 1:
+            sklad(aboba)
+        elif aboba == 2:
+            sklad(aboba)
+
+
+tr1 = Thread(target=ychetvremeni, args=(0,0,0,))
+tr2 = Thread(target=Logica)
+if True:
+    tr1.start()
+    tr2.start()
