@@ -1,0 +1,48 @@
+import time
+def timer_start():
+    print("Введите секунды")
+    sekundi = int(input())
+    print("Введите минуты")
+    minyti = int(input())
+    print("Введите часы")
+    chasi = int(input())
+    if sekundi>60 and sekundi<0:
+        timer_start()
+    elif minyti>60 and minyti<0:
+        timer_start()
+    elif chasi>24 and chasi<0:
+        timer_start()
+    timer(sekundi,minyti,chasi)
+def timer(sekundi,minyti,chasi):
+    while True:
+        if sekundi == 0 and minyti != 0:
+            sekundi+=60
+            minyti-=1
+        elif minyti == 0 and chasi !=0:
+            minyti+=60
+            chasi-=1
+        elif chasi == 0 and minyti == 0 and sekundi == 0:
+            break
+        time.sleep(1)
+        sekundi-=1
+        print("часы: ", chasi,"минуты: ", minyti,"секунды: ", sekundi)
+def sekundomer():
+    sekundi = 0
+    print("Нажмите Enter для начала")
+    while True:
+        print(sekundi)
+        time.sleep(1)
+        sekundi+=1
+print("Выберете подходящий вариант")
+time.sleep(1)
+print("1 - таймер")
+print("2 - секунда мер")
+otvet = int(input())
+if otvet == 1:
+    timer_start()
+
+elif otvet == 2:
+    sekundomer()
+else:
+    print("Такого варианта нету")
+
